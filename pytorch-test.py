@@ -11,14 +11,11 @@ def stress_test_gpu(device_id, duration_seconds):
     start_time = time.time()
     end_time = start_time + duration_seconds
 
-    # Set the current CUDA device for this process
     torch.cuda.set_device(device_id)
 
     while time.time() < end_time:
-        # Create a random tensor on the GPU
         tensor = torch.randn(1000, 1000, device='cuda')
 
-        # Perform a matrix multiplication on the GPU
         result = torch.mm(tensor, tensor)
 
     print(f"GPU {device_id} stress test completed for {duration_seconds} seconds.")
@@ -35,7 +32,6 @@ if __name__ == '__main__':
         processes.append(p)
         p.start()
 
-    # Wait for all processes to complete
     for p in processes:
         p.join()
 
